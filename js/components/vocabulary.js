@@ -61,7 +61,6 @@ const VocabularyBrowserComponent = {
             </div>
         `;
 
-        DutchStorage.markDailyActivity('vocabulary');
     },
 
     setFilter(filter) {

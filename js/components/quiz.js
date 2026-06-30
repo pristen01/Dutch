@@ -32,7 +32,8 @@ const QuizComponent = {
         const words = VocabularyData.getByWeek(weekNum);
         if (words.length < 4) return;
 
-        this.questions = words.slice(0, 10).map(w => {
+        const questionCount = Math.min(20, words.length);
+        this.questions = words.slice(0, questionCount).map(w => {
             const wrongOptions = words
                 .filter(x => x.id !== w.id)
                 .sort(() => Math.random() - 0.5)
@@ -53,6 +54,7 @@ const QuizComponent = {
         this.answers = [];
         this.answered = false;
         this.mode = 'vocab';
+        this.sourceId = weekNum;
 
         App.navigate('lesson');
         this.render();
@@ -211,7 +213,9 @@ const QuizComponent = {
             DutchStorage.update(data => {
                 data.grammarProgress[this.sourceId] = pct;
             });
-            DutchStorage.markDailyActivity('grammar');
+            const lesson = GrammarData.getById(this.sourceId);
+            const minutes = lesson ? Math.max(15, Math.min(30, 8 + lesson.exercises.length * 2)) : 15;
+            DutchStorage.markActivityComplete('grammar', minutes);
         } else if (this.mode === 'knm' && this.sourceId) {
             DutchStorage.update(data => {
                 if (!data.knmProgress[this.sourceId]) {
@@ -219,13 +223,12 @@ const QuizComponent = {
                 }
                 data.knmProgress[this.sourceId].quizScores.push(pct);
             });
-            DutchStorage.markDailyActivity('knm');
+            const topic = KNMData.getTopicById(this.sourceId);
+            const minutes = topic ? Math.max(15, Math.min(25, 8 + topic.questions.length)) : 15;
+            DutchStorage.markActivityComplete('knm', minutes);
         } else if (this.mode === 'vocab') {
-            DutchStorage.markDailyActivity('vocabulary');
+            DutchStorage.markActivityComplete('vocabulary', Math.max(20, Math.min(35, this.questions.length * 2)));
         }
-
-        DutchStorage.updateStreak();
-        App.updateStreakDisplay();
 
         container.innerHTML = `
             <div class="quiz-container">

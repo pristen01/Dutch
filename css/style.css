@@ -760,6 +760,7 @@ body {
     box-shadow: 0 0 12px var(--primary-glow);
 }
 
+.timeline-week.a0 { border-bottom: 2px solid #A78BFA; }
 .timeline-week.a1 { border-bottom: 2px solid #48CAE4; }
 .timeline-week.a2 { border-bottom: 2px solid var(--success); }
 .timeline-week.b1 { border-bottom: 2px solid var(--warning); }
@@ -1629,6 +1630,7 @@ body {
     text-transform: uppercase;
 }
 
+.level-badge.a0 { background: rgba(167, 139, 250, 0.15); color: #A78BFA; }
 .level-badge.a1 { background: rgba(72, 202, 228, 0.15); color: #48CAE4; }
 .level-badge.a2 { background: var(--success-bg); color: var(--success); }
 .level-badge.b1 { background: var(--warning-bg); color: var(--warning); }

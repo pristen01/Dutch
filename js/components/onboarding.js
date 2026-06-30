@@ -8,6 +8,7 @@ const OnboardingComponent = {
     selectedMode: null,
     placementAnswers: [],
     placementQuestions: [
+        { question: 'What does "Kunt u dat herhalen?" mean?', options: ['Can you repeat that?', 'Can I pay?', 'Where do you live?', 'What time is it?'], answer: 0, level: 'A0' },
         { question: 'What does "Hallo, hoe gaat het?" mean?', options: ['Hello, what time is it?', 'Hello, how are you?', 'Hello, where are you?', 'Hello, who are you?'], answer: 1, level: 'A1' },
         { question: 'Choose the correct article: "___ huis"', options: ['de', 'het', 'een', 'geen'], answer: 1, level: 'A1' },
         { question: '"Ik heb twee kinderen." means:', options: ['I have two cats', 'I have two children', 'I see two children', 'I want two children'], answer: 1, level: 'A1' },
@@ -152,20 +153,25 @@ const OnboardingComponent = {
 
     calculatePlacement() {
         let correct = 0;
+        let answered = 0;
         this.placementAnswers.forEach((ans, i) => {
+            if (ans === -1) return;
+            answered++;
             if (ans === this.placementQuestions[i].answer) correct++;
         });
 
-        const score = correct / this.placementQuestions.length;
+        const total = answered || this.placementQuestions.length;
+        const score = answered ? correct / answered : 0;
         let startWeek = 1;
-        let level = 'A1';
+        let level = 'A0';
 
         if (score >= 0.75) { startWeek = 13; level = 'B2'; }
         else if (score >= 0.5) { startWeek = 9; level = 'B1'; }
         else if (score >= 0.3) { startWeek = 5; level = 'A2'; }
-        else { startWeek = 1; level = 'A1'; }
+        else if (score >= 0.15) { startWeek = 2; level = 'A1'; }
+        else { startWeek = 1; level = 'A0'; }
 
-        return { correct, total: this.placementQuestions.length, score, startWeek, level };
+        return { correct, total, score, startWeek, level };
     },
 
     renderResult(container) {
@@ -231,10 +237,8 @@ const OnboardingComponent = {
             data.currentWeek = result.startWeek;
             data.currentDay = 1;
             data.placementScore = result.correct;
-            data.settings.dailyGoalMinutes = config.hoursPerDay * 60;
+            data.settings.dailyGoalMinutes = Math.max(60, config.hoursPerDay * 60);
         });
-
-        DutchStorage.updateStreak();
 
         // Hide onboarding, show app
         document.getElementById('onboarding-overlay').classList.add('hidden');

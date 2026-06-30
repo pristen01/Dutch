@@ -84,6 +84,5 @@ const KNMComponent = {
             </div>
         `;
 
-        DutchStorage.markDailyActivity('knm');
     }
 };

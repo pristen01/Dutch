@@ -198,3 +198,121 @@ De grondwet beschermt fundamentele rechten zoals vrijheid van meningsuiting, god
         return this.passages;
     }
 };
+
+ReadingData.passages.push(
+    {
+        id: 'r000',
+        title: 'Mijn Eerste Les',
+        titleEn: 'My First Lesson',
+        level: 'A0',
+        week: 1,
+        text: `Hallo. Mijn naam is Sam. Ik leer Nederlands. De leraar zegt: "Goedemorgen." Ik zeg: "Goedemorgen." Ik luister en ik herhaal. Soms begrijp ik het niet. Dan vraag ik: "Kunt u dat herhalen, alstublieft?" De leraar spreekt langzaam. Ik spel mijn naam: S-A-M. Ik kan al een beetje Nederlands spreken.`,
+        questions: [
+            { question: 'Wat leert Sam?', options: ['Engels', 'Nederlands', 'Frans', 'Duits'], answer: 'Nederlands' },
+            { question: 'Wat zegt de leraar?', options: ['Goedenavond', 'Goedemorgen', 'Tot ziens', 'Dank je'], answer: 'Goedemorgen' },
+            { question: 'Wat vraagt Sam als hij het niet begrijpt?', options: ['Hoe laat is het?', 'Kunt u dat herhalen?', 'Waar is de bus?', 'Wat kost het?'], answer: 'Kunt u dat herhalen?' },
+            { question: 'Hoe spreekt de leraar?', options: ['Snel', 'Langzaam', 'Boos', 'Zacht'], answer: 'Langzaam' },
+            { question: 'Welke naam spelt Sam?', options: ['S-A-M', 'A-N-N-A', 'P-E-T-E-R', 'L-I-S-A'], answer: 'S-A-M' },
+            { question: 'Wat kan Sam al een beetje?', options: ['Nederlands spreken', 'Autorijden', 'Werken', 'Koken'], answer: 'Nederlands spreken' }
+        ]
+    },
+    {
+        id: 'r010',
+        title: 'Een Nieuwe Baan Zoeken',
+        titleEn: 'Looking for a New Job',
+        level: 'A2',
+        week: 8,
+        text: `Fatima zoekt een nieuwe baan. Zij kijkt elke dag op internet naar vacatures. Vandaag ziet zij een vacature voor administratief medewerker bij een school. De functie is voor 32 uur per week. Fatima werkt graag met mensen en zij is goed met computers.
+
+Zij schrijft een korte motivatiebrief. In de brief vertelt zij wie zij is, welke ervaring zij heeft en waarom zij bij de school wil werken. Daarna stuurt zij haar cv en brief per e-mail. Twee dagen later krijgt zij een uitnodiging voor een sollicitatiegesprek.`,
+        questions: [
+            { question: 'Wat zoekt Fatima?', options: ['Een huis', 'Een opleiding', 'Een nieuwe baan', 'Een fiets'], answer: 'Een nieuwe baan' },
+            { question: 'Voor hoeveel uur per week is de functie?', options: ['16 uur', '24 uur', '32 uur', '40 uur'], answer: '32 uur' },
+            { question: 'Waar is de vacature?', options: ['Bij een bank', 'Bij een school', 'Bij de gemeente', 'Bij een winkel'], answer: 'Bij een school' },
+            { question: 'Wat stuurt Fatima per e-mail?', options: ['Alleen haar cv', 'Haar cv en motivatiebrief', 'Een contract', 'Een diploma'], answer: 'Haar cv en motivatiebrief' },
+            { question: 'Wat krijgt zij twee dagen later?', options: ['Een afwijzing', 'Een uitnodiging', 'Een salaris', 'Een diploma'], answer: 'Een uitnodiging' }
+        ]
+    },
+    {
+        id: 'r011',
+        title: 'Een Afspraak bij de Gemeente',
+        titleEn: 'An Appointment at the Municipality',
+        level: 'B1',
+        week: 11,
+        text: `Ahmed heeft een afspraak bij de gemeente omdat hij zijn verhuizing moet doorgeven. Hij neemt zijn paspoort, huurcontract en afspraakbevestiging mee. Bij de balie vraagt de medewerker naar zijn BSN. Ahmed begrijpt niet alles meteen, daarom vraagt hij of de medewerker langzamer kan spreken.
+
+De medewerker legt uit dat Ahmed binnen vijf dagen na de verhuizing zijn nieuwe adres moet registreren. Daarna krijgt hij per post een bevestiging. Ahmed controleert alle gegevens goed voordat hij het formulier ondertekent.`,
+        questions: [
+            { question: 'Waarom gaat Ahmed naar de gemeente?', options: ['Voor een rijbewijs', 'Voor een verhuizing', 'Voor een baan', 'Voor zorgtoeslag'], answer: 'Voor een verhuizing' },
+            { question: 'Wat neemt hij mee?', options: ['Paspoort, huurcontract en afspraakbevestiging', 'Alleen zijn fiets', 'Een bankpas en brood', 'Een schoolboek'], answer: 'Paspoort, huurcontract en afspraakbevestiging' },
+            { question: 'Wat vraagt de medewerker?', options: ['Zijn salaris', 'Zijn BSN', 'Zijn leeftijd', 'Zijn diploma'], answer: 'Zijn BSN' },
+            { question: 'Wat doet Ahmed als hij het niet begrijpt?', options: ['Hij gaat weg', 'Hij vraagt om langzamer spreken', 'Hij belt 112', 'Hij tekent direct'], answer: 'Hij vraagt om langzamer spreken' },
+            { question: 'Wanneer moet hij zijn adres registreren?', options: ['Binnen vijf dagen', 'Na een jaar', 'Nooit', 'Binnen drie maanden'], answer: 'Binnen vijf dagen' }
+        ]
+    },
+    {
+        id: 'r012',
+        title: 'Een Werkoverleg',
+        titleEn: 'A Work Meeting',
+        level: 'B1',
+        week: 12,
+        text: `Op maandag heeft Noor een werkoverleg met haar team. De vergadering begint om tien uur. Eerst bespreekt de manager de planning voor de week. Daarna vertelt Noor over een probleem met een klant. Zij legt rustig uit wat er is gebeurd en stelt een oplossing voor.
+
+Haar collega’s stellen vragen. Noor beantwoordt de vragen duidelijk. Aan het einde vat de manager de afspraken samen. Noor stuurt na de vergadering een e-mail met de belangrijkste punten en de deadlines.`,
+        questions: [
+            { question: 'Wanneer is het werkoverleg?', options: ['Maandag', 'Dinsdag', 'Vrijdag', 'Zondag'], answer: 'Maandag' },
+            { question: 'Waarover vertelt Noor?', options: ['Een vakantie', 'Een probleem met een klant', 'Een nieuwe woning', 'Een examen'], answer: 'Een probleem met een klant' },
+            { question: 'Wat stelt Noor voor?', options: ['Een oplossing', 'Een feest', 'Een salaris', 'Een klacht zonder oplossing'], answer: 'Een oplossing' },
+            { question: 'Wat doet de manager aan het einde?', options: ['Hij gaat weg', 'Hij vat de afspraken samen', 'Hij belt de klant', 'Hij annuleert alles'], answer: 'Hij vat de afspraken samen' },
+            { question: 'Wat stuurt Noor na de vergadering?', options: ['Een factuur', 'Een e-mail met punten en deadlines', 'Een cadeau', 'Een sollicitatiebrief'], answer: 'Een e-mail met punten en deadlines' }
+        ]
+    },
+    {
+        id: 'r013',
+        title: 'Thuiswerken of op Kantoor',
+        titleEn: 'Working from Home or at the Office',
+        level: 'B2',
+        week: 13,
+        text: `Sinds de coronaperiode werken veel mensen vaker thuis. Enerzijds biedt thuiswerken voordelen: werknemers reizen minder, kunnen hun dag flexibeler indelen en hebben soms meer concentratie. Anderzijds missen sommige werknemers het directe contact met collega’s. Ook is het moeilijker om werk en privé gescheiden te houden.
+
+Werkgevers zoeken daarom naar een balans. Veel organisaties kiezen voor hybride werken: een paar dagen thuis en een paar dagen op kantoor. Deze aanpak vraagt duidelijke afspraken over bereikbaarheid, vergaderingen en resultaten. Uiteindelijk hangt de beste oplossing af van het soort werk, het team en de persoonlijke situatie van de werknemer.`,
+        questions: [
+            { question: 'Wat is een voordeel van thuiswerken?', options: ['Meer reistijd', 'Minder flexibiliteit', 'Minder reizen', 'Geen afspraken nodig'], answer: 'Minder reizen' },
+            { question: 'Wat missen sommige werknemers?', options: ['Direct contact met collega’s', 'Files', 'Meer regels', 'Lange vergaderingen'], answer: 'Direct contact met collega’s' },
+            { question: 'Wat betekent hybride werken?', options: ['Alleen thuis werken', 'Alleen op kantoor werken', 'Thuis en op kantoor werken', 'Niet werken'], answer: 'Thuis en op kantoor werken' },
+            { question: 'Wat vraagt hybride werken?', options: ['Duidelijke afspraken', 'Geen communicatie', 'Alleen meer salaris', 'Minder resultaten'], answer: 'Duidelijke afspraken' },
+            { question: 'Waar hangt de beste oplossing van af?', options: ['Alleen de manager', 'Soort werk, team en persoonlijke situatie', 'Het weer', 'De trein'], answer: 'Soort werk, team en persoonlijke situatie' }
+        ]
+    },
+    {
+        id: 'r014',
+        title: 'Laatste Examencheck',
+        titleEn: 'Final Exam Check',
+        level: 'B2',
+        week: 16,
+        text: `In de laatste week voor het examen is het belangrijk om gericht te herhalen. Maak geen volledig nieuw studieplan, maar kijk naar je zwakke punten. Als lezen moeilijk is, oefen dan met langere teksten en noteer de hoofdgedachte per alinea. Als spreken spannend is, oefen dan elke dag hardop met een timer.
+
+Een goede voorbereiding bestaat uit drie onderdelen: inhoud, strategie en rust. Inhoud betekent dat je woorden, grammatica en KNM-feiten kent. Strategie betekent dat je weet hoe je vragen snel en nauwkeurig beantwoordt. Rust betekent dat je genoeg slaapt en op tijd naar het examen vertrekt.`,
+        questions: [
+            { question: 'Wat moet je in de laatste week vooral doen?', options: ['Gericht herhalen', 'Alles opnieuw leren', 'Niet slapen', 'Alleen televisie kijken'], answer: 'Gericht herhalen' },
+            { question: 'Wat doe je als lezen moeilijk is?', options: ['Langere teksten oefenen', 'Alleen woorden overschrijven', 'Niet lezen', 'Alleen spreken'], answer: 'Langere teksten oefenen' },
+            { question: 'Welke drie onderdelen noemt de tekst?', options: ['Inhoud, strategie en rust', 'Werk, geld en tijd', 'Lezen, fietsen en koken', 'School, huis en bus'], answer: 'Inhoud, strategie en rust' },
+            { question: 'Wat betekent strategie?', options: ['Weten hoe je vragen snel en nauwkeurig beantwoordt', 'Meer koffie drinken', 'Geen plan hebben', 'Alleen gokken'], answer: 'Weten hoe je vragen snel en nauwkeurig beantwoordt' },
+            { question: 'Waarom is rust belangrijk?', options: ['Omdat je genoeg moet slapen', 'Omdat je niets hoeft te doen', 'Omdat het examen makkelijk is', 'Omdat woorden niet belangrijk zijn'], answer: 'Omdat je genoeg moet slapen' }
+        ]
+    }
+);
+
+ReadingData.passages.forEach(passage => {
+    if (passage.questions.length >= 6) return;
+    passage.questions.push({
+        question: 'Wat is de hoofdgedachte van de tekst?',
+        options: [
+            passage.titleEn,
+            'Een onderwerp dat niet in de tekst staat',
+            'Alleen een detail uit de eerste zin',
+            'Een willekeurige plaats in Nederland'
+        ],
+        answer: passage.titleEn
+    });
+});

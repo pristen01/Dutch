@@ -305,3 +305,51 @@ const KNMData = {
         return shuffled.slice(0, Math.min(count, all.length));
     }
 };
+
+const extraKNMQuestions = {
+    knm_health: [
+        { question: 'Wanneer gaat u naar de huisartsenpost?', options: ['Voor spoed buiten kantooruren', 'Voor belastingaangifte', 'Voor een paspoort', 'Voor kinderopvang'], answer: 'Voor spoed buiten kantooruren' },
+        { question: 'Wordt de huisarts meestal vergoed door de basisverzekering?', options: ['Ja', 'Nee', 'Alleen bij spoed', 'Alleen voor kinderen'], answer: 'Ja' },
+        { question: 'Waar haalt u medicijnen op recept op?', options: ['Bij de apotheek', 'Bij de gemeente', 'Bij DUO', 'Bij de bibliotheek'], answer: 'Bij de apotheek' }
+    ],
+    knm_government: [
+        { question: 'Waar gebruikt u uw BSN voor?', options: ['Officiele administratie', 'Alleen boodschappen', 'Alleen reizen', 'Sportwedstrijden'], answer: 'Officiele administratie' },
+        { question: 'Wat kunt u met DigiD doen?', options: ['Inloggen bij overheidsdiensten', 'Gratis reizen', 'Stemmen vanuit huis', 'Een huis kopen zonder hypotheek'], answer: 'Inloggen bij overheidsdiensten' },
+        { question: 'Welke toeslag kan helpen bij zorgkosten?', options: ['Zorgtoeslag', 'Reistoeslag', 'Fietstoeslag', 'Boekentoeslag'], answer: 'Zorgtoeslag' }
+    ],
+    knm_housing: [
+        { question: 'Wie is verantwoordelijk voor veel sociale huurwoningen?', options: ['Woningcorporaties', 'Alleen de politie', 'DUO', 'De huisarts'], answer: 'Woningcorporaties' },
+        { question: 'Wat staat in een huurcontract?', options: ['Huurprijs en voorwaarden', 'Uw medische dossier', 'Uw examenresultaat', 'Uw stemadvies'], answer: 'Huurprijs en voorwaarden' },
+        { question: 'Waarom vergelijkt men energieleveranciers?', options: ['Om kosten te besparen', 'Om een paspoort te krijgen', 'Om Nederlands te leren', 'Om kinderbijslag te krijgen'], answer: 'Om kosten te besparen' }
+    ],
+    knm_education: [
+        { question: 'Hoe heet groep 1 tot en met 8?', options: ['Basisonderwijs', 'Universiteit', 'HBO', 'MBO alleen'], answer: 'Basisonderwijs' },
+        { question: 'Wat betekent kwalificatieplicht?', options: ['Jongeren moeten onderwijs volgen tot startkwalificatie of 18 jaar', 'Iedereen moet stemmen', 'Iedereen moet werken', 'Kinderen mogen niet naar school'], answer: 'Jongeren moeten onderwijs volgen tot startkwalificatie of 18 jaar' },
+        { question: 'Voor wie is kinderopvangtoeslag bedoeld?', options: ['Werkende ouders met kinderopvangkosten', 'Alle studenten', 'Alle huurders', 'Alle gepensioneerden'], answer: 'Werkende ouders met kinderopvangkosten' }
+    ],
+    knm_work: [
+        { question: 'Wat is nettoloon?', options: ['Loon na belastingen en premies', 'Loon voor belastingen', 'Vakantiegeld alleen', 'Een uitkering'], answer: 'Loon na belastingen en premies' },
+        { question: 'Wie helpt bij werkloosheidsuitkering?', options: ['UWV', 'DUO', 'Apotheek', 'Tandarts'], answer: 'UWV' },
+        { question: 'Wat hoort meestal bij solliciteren?', options: ['CV, motivatiebrief en gesprek', 'Alleen een paspoort', 'Een huurcontract', 'Een zorgpas'], answer: 'CV, motivatiebrief en gesprek' }
+    ],
+    knm_politics: [
+        { question: 'Wie kiest de Tweede Kamer?', options: ['De bevolking', 'Alleen de koning', 'Alleen burgemeesters', 'De Eerste Kamer'], answer: 'De bevolking' },
+        { question: 'Waarom zijn coalities vaak nodig?', options: ['Omdat er veel partijen zijn', 'Omdat stemmen verboden is', 'Omdat er geen parlement is', 'Omdat de koning alle wetten maakt'], answer: 'Omdat er veel partijen zijn' },
+        { question: 'Wat doet de rechterlijke macht?', options: ['Rechtspreken', 'Belastingen innen', 'Woningen verhuren', 'Examens maken'], answer: 'Rechtspreken' }
+    ],
+    knm_history: [
+        { question: 'Waarom is watermanagement belangrijk in Nederland?', options: ['Veel land ligt laag of onder zeeniveau', 'Er zijn geen rivieren', 'Nederland heeft geen kust', 'Het regent nooit'], answer: 'Veel land ligt laag of onder zeeniveau' },
+        { question: 'Wat herdenkt Nederland op 4 mei?', options: ['Dodenherdenking', 'Koningsdag', 'Nieuwjaar', 'Sinterklaas'], answer: 'Dodenherdenking' },
+        { question: 'Wat viert Nederland op 5 mei?', options: ['Bevrijdingsdag', 'Kerstmis', 'Prinsjesdag', 'Pasen'], answer: 'Bevrijdingsdag' }
+    ],
+    knm_culture: [
+        { question: 'Wat betekent punctualiteit?', options: ['Op tijd komen', 'Te laat komen', 'Niet reageren', 'Hard praten'], answer: 'Op tijd komen' },
+        { question: 'Waarom is de fiets belangrijk in Nederland?', options: ['Het is een veelgebruikt vervoermiddel', 'Fietsen zijn verboden', 'Alleen kinderen fietsen', 'Er zijn geen wegen'], answer: 'Het is een veelgebruikt vervoermiddel' },
+        { question: 'Wat betekent Nederlandse directheid meestal?', options: ['Duidelijk zeggen wat men denkt', 'Altijd boos zijn', 'Nooit praten', 'Alleen fluisteren'], answer: 'Duidelijk zeggen wat men denkt' }
+    ]
+};
+
+Object.entries(extraKNMQuestions).forEach(([topicId, questions]) => {
+    const topic = KNMData.getTopicById(topicId);
+    if (topic) topic.questions.push(...questions);
+});

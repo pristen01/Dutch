@@ -553,3 +553,202 @@ Used after alles, iets, niets, dat, het:
         return this.lessons;
     }
 };
+
+GrammarData.lessons.push(
+    {
+        id: 'g000',
+        title: 'A0 Survival Sentences and Sounds',
+        titleNl: 'A0 overlevingszinnen en klanken',
+        level: 'A0',
+        week: 1,
+        explanation: `Before grammar becomes complex, you need classroom survival Dutch. Learn short chunks first: greetings, asking someone to repeat, spelling your name, and saying that you do not understand.
+
+**Useful sentence frames:**
+- Mijn naam is ...
+- Ik kom uit ...
+- Kunt u dat herhalen?
+- Ik begrijp het niet.
+- Spreekt u langzaam, alstublieft?
+
+**Pronunciation focus:** Dutch has sounds that may be new: g/ch, ui, ij/ei, eu, and sch. Listen first, then repeat slowly.`,
+        examples: [
+            { dutch: 'Mijn naam is Lina.', english: 'My name is Lina.' },
+            { dutch: 'Ik kom uit Ghana.', english: 'I come from Ghana.' },
+            { dutch: 'Kunt u dat herhalen?', english: 'Can you repeat that?' },
+            { dutch: 'Ik begrijp het niet.', english: 'I do not understand.' }
+        ],
+        exercises: [
+            { type: 'fill', question: 'Mijn ___ is Sara.', answer: 'naam', hint: 'name' },
+            { type: 'fill', question: 'Ik ___ uit Nigeria.', answer: 'kom', hint: 'come' },
+            { type: 'mcq', question: 'What do you say when you do not understand?', options: ['Ik begrijp het niet.', 'Ik ben klaar.', 'Ik heb honger.', 'Ik woon hier.'], answer: 'Ik begrijp het niet.' },
+            { type: 'mcq', question: 'Which sentence asks someone to repeat?', options: ['Hoe heet u?', 'Kunt u dat herhalen?', 'Waar woont u?', 'Tot morgen.'], answer: 'Kunt u dat herhalen?' },
+            { type: 'fill', question: 'Spreekt u ___, alstublieft?', answer: 'langzaam', hint: 'slowly' },
+            { type: 'mcq', question: 'What does "spellen" mean?', options: ['to spell', 'to sleep', 'to work', 'to buy'], answer: 'to spell' },
+            { type: 'fill', question: 'Kunt u uw naam ___?', answer: 'spellen', hint: 'spell' },
+            { type: 'mcq', question: 'Which phrase is formal/polite?', options: ['Kunt u dat herhalen?', 'Herhaal dat!', 'Wat zeg je?', 'Hé jij!'], answer: 'Kunt u dat herhalen?' },
+            { type: 'fill', question: 'Ik leer het Nederlandse ___.', answer: 'alfabet', hint: 'alphabet' },
+            { type: 'mcq', question: 'Which sound is typical in Dutch words like "goed" and "graag"?', options: ['g/ch', 'th', 'w like English', 'silent r'], answer: 'g/ch' }
+        ]
+    },
+    {
+        id: 'g015',
+        title: 'Negation and Questions',
+        titleNl: 'Ontkenning en vragen',
+        level: 'A1',
+        week: 4,
+        explanation: `Dutch uses **niet** and **geen** for negation.
+
+Use **geen** before an indefinite noun: Ik heb geen fiets.
+Use **niet** for verbs, adjectives, definite nouns, and most other parts: Ik kom niet.
+
+For yes/no questions, put the verb first: Kom jij morgen?`,
+        examples: [
+            { dutch: 'Ik heb geen geld.', english: 'I have no money.' },
+            { dutch: 'Ik drink geen koffie.', english: 'I do not drink coffee.' },
+            { dutch: 'Ik kom niet vandaag.', english: 'I am not coming today.' },
+            { dutch: 'Betaalt u met pinpas?', english: 'Do you pay by debit card?' }
+        ],
+        exercises: [
+            { type: 'fill', question: 'Ik heb ___ auto.', answer: 'geen', hint: 'no car' },
+            { type: 'fill', question: 'Hij werkt vandaag ___.', answer: 'niet', hint: 'not' },
+            { type: 'mcq', question: 'Choose the correct sentence.', options: ['Ik heb niet fiets.', 'Ik heb geen fiets.', 'Ik geen heb fiets.', 'Ik heb fiets geen.'], answer: 'Ik heb geen fiets.' },
+            { type: 'mcq', question: 'How do you make a yes/no question?', options: ['Put the verb first', 'Put niet first', 'Always add geen', 'Put the subject last always'], answer: 'Put the verb first' },
+            { type: 'fill', question: '___ jij brood? (buy)', answer: 'Koop', hint: 'verb first in a question' },
+            { type: 'fill', question: 'Wij drinken ___ melk.', answer: 'geen', hint: 'no milk' },
+            { type: 'mcq', question: 'Use "niet" with:', options: ['an indefinite noun', 'a verb or adjective', 'only plural nouns', 'only food words'], answer: 'a verb or adjective' },
+            { type: 'fill', question: 'De winkel is ___ open.', answer: 'niet', hint: 'not open' },
+            { type: 'mcq', question: 'Translate: "I do not understand."', options: ['Ik begrijp het niet.', 'Ik begrijp geen.', 'Ik niet begrijp.', 'Ik heb geen begrijp.'], answer: 'Ik begrijp het niet.' },
+            { type: 'fill', question: 'Heeft u ___ vraag?', answer: 'een', hint: 'Do you have a question?' }
+        ]
+    },
+    {
+        id: 'g016',
+        title: 'Formal Requests and Job Language',
+        titleNl: 'Formele verzoeken en werktaal',
+        level: 'A2',
+        week: 8,
+        explanation: `At work and in official situations, Dutch often uses polite modal verbs and formal word choices.
+
+Useful forms:
+- Ik wil graag ...
+- Kunt u ...?
+- Zou u ... kunnen?
+- Ik ben beschikbaar op ...
+- Met vriendelijke groet`,
+        examples: [
+            { dutch: 'Ik wil graag solliciteren op deze functie.', english: 'I would like to apply for this position.' },
+            { dutch: 'Kunt u mijn cv bekijken?', english: 'Can you review my CV?' },
+            { dutch: 'Zou u mij kunnen bellen?', english: 'Could you call me?' },
+            { dutch: 'Ik ben beschikbaar op maandag.', english: 'I am available on Monday.' }
+        ],
+        exercises: [
+            { type: 'fill', question: 'Ik wil graag ___ op deze functie.', answer: 'solliciteren', hint: 'apply' },
+            { type: 'mcq', question: 'Which is the most polite request?', options: ['Bel mij nu.', 'Zou u mij kunnen bellen?', 'Jij belt mij.', 'Bellen!'], answer: 'Zou u mij kunnen bellen?' },
+            { type: 'fill', question: 'Ik ben ___ op dinsdag.', answer: 'beschikbaar', hint: 'available' },
+            { type: 'mcq', question: 'What do you write at the end of a formal email?', options: ['Doei', 'Met vriendelijke groet', 'Tot straks', 'Hoi hoi'], answer: 'Met vriendelijke groet' },
+            { type: 'fill', question: 'Kunt u mijn ___ bekijken?', answer: 'cv', hint: 'curriculum vitae' },
+            { type: 'mcq', question: 'What does "functie" mean in a job text?', options: ['position', 'holiday', 'salary slip', 'school'], answer: 'position' },
+            { type: 'fill', question: 'Zou u mij kunnen ___?', answer: 'helpen', hint: 'help' },
+            { type: 'mcq', question: 'Which sentence belongs in a motivation letter?', options: ['Ik wil graag bij uw bedrijf werken.', 'Ik koop brood.', 'Ik ben ziek vandaag.', 'De trein is laat.'], answer: 'Ik wil graag bij uw bedrijf werken.' },
+            { type: 'fill', question: 'Mijn werkervaring ___ goed bij deze baan.', answer: 'past', hint: 'fits' },
+            { type: 'mcq', question: 'Formal Dutch usually uses:', options: ['u', 'jij only', 'slang', 'no verbs'], answer: 'u' }
+        ]
+    },
+    {
+        id: 'g017',
+        title: 'Linking Ideas at B1',
+        titleNl: 'Ideeen verbinden op B1',
+        level: 'B1',
+        week: 11,
+        explanation: `To speak and write at B1, connect ideas clearly. Use words like **omdat**, **maar**, **dus**, **daarom**, **eerst**, **daarna**, and **ten slotte**.
+
+Remember: after **omdat**, the verb goes to the end.`,
+        examples: [
+            { dutch: 'Ik leer Nederlands omdat ik wil werken.', english: 'I learn Dutch because I want to work.' },
+            { dutch: 'Het formulier is moeilijk, maar ik kan hulp vragen.', english: 'The form is difficult, but I can ask for help.' },
+            { dutch: 'Ik ben ziek, daarom ga ik naar de huisarts.', english: 'I am sick, therefore I go to the GP.' },
+            { dutch: 'Eerst lees ik de tekst, daarna beantwoord ik de vragen.', english: 'First I read the text, then I answer the questions.' }
+        ],
+        exercises: [
+            { type: 'fill', question: 'Ik leer Nederlands ___ ik in Nederland woon.', answer: 'omdat', hint: 'because' },
+            { type: 'mcq', question: 'After "omdat", the verb goes:', options: ['first', 'second', 'at the end', 'nowhere'], answer: 'at the end' },
+            { type: 'fill', question: 'Ik heb koorts, ___ ga ik naar de huisarts.', answer: 'daarom', hint: 'therefore' },
+            { type: 'mcq', question: 'Which word shows contrast?', options: ['maar', 'dus', 'eerst', 'daarna'], answer: 'maar' },
+            { type: 'fill', question: 'Eerst maak ik een afspraak, ___ ga ik naar de gemeente.', answer: 'daarna', hint: 'after that' },
+            { type: 'mcq', question: 'Which sentence is correct?', options: ['Omdat ik ziek ben, blijf ik thuis.', 'Omdat ik ben ziek, blijf ik thuis.', 'Omdat ziek ik ben, blijf ik thuis.', 'Omdat blijf ik thuis ziek.'], answer: 'Omdat ik ziek ben, blijf ik thuis.' },
+            { type: 'fill', question: 'Het is duur, ___ het is belangrijk.', answer: 'maar', hint: 'but' },
+            { type: 'mcq', question: 'What does "ten slotte" mean?', options: ['finally', 'because', 'although', 'never'], answer: 'finally' },
+            { type: 'fill', question: 'Ik heb geen DigiD, ___ kan ik niet inloggen.', answer: 'dus', hint: 'so' },
+            { type: 'mcq', question: 'Which connector gives a reason?', options: ['omdat', 'maar', 'daarna', 'eerst'], answer: 'omdat' }
+        ]
+    },
+    {
+        id: 'g018',
+        title: 'Formal Writing and Presentations',
+        titleNl: 'Formeel schrijven en presenteren',
+        level: 'B1',
+        week: 12,
+        explanation: `Professional Dutch needs clear structure. Start with the purpose, give details, and close politely.
+
+Useful phrases:
+- Naar aanleiding van ...
+- Ik wil graag ...
+- Kunt u mij laten weten ...
+- Alvast bedankt voor uw reactie.
+- Met vriendelijke groet`,
+        examples: [
+            { dutch: 'Naar aanleiding van uw e-mail heb ik een vraag.', english: 'In response to your email, I have a question.' },
+            { dutch: 'Kunt u mij laten weten wanneer de vergadering begint?', english: 'Can you let me know when the meeting starts?' },
+            { dutch: 'Alvast bedankt voor uw reactie.', english: 'Thank you in advance for your response.' },
+            { dutch: 'Tijdens de presentatie bespreek ik drie punten.', english: 'During the presentation I discuss three points.' }
+        ],
+        exercises: [
+            { type: 'fill', question: 'Naar ___ van uw e-mail heb ik een vraag.', answer: 'aanleiding', hint: 'in response to' },
+            { type: 'mcq', question: 'Which phrase is formal?', options: ['Hoi, alles goed?', 'Alvast bedankt voor uw reactie.', 'Doei!', 'Ik snap er niks van.'], answer: 'Alvast bedankt voor uw reactie.' },
+            { type: 'fill', question: 'Kunt u mij laten ___ wanneer de vergadering begint?', answer: 'weten', hint: 'let me know' },
+            { type: 'mcq', question: 'A clear presentation usually has:', options: ['no structure', 'an introduction, points, conclusion', 'only jokes', 'only one long sentence'], answer: 'an introduction, points, conclusion' },
+            { type: 'fill', question: 'Tijdens de presentatie ___ ik drie punten.', answer: 'bespreek', hint: 'discuss' },
+            { type: 'mcq', question: 'What does "alvast bedankt" mean?', options: ['thanks in advance', 'never mind', 'good morning', 'see you later'], answer: 'thanks in advance' },
+            { type: 'fill', question: 'Met vriendelijke ___', answer: 'groet', hint: 'formal closing' },
+            { type: 'mcq', question: 'Professional Dutch should be:', options: ['clear and polite', 'only informal', 'without verbs', 'as short as possible always'], answer: 'clear and polite' },
+            { type: 'fill', question: 'Ik wil graag een afspraak ___.', answer: 'maken', hint: 'make an appointment' },
+            { type: 'mcq', question: 'Which is best for asking about a meeting time?', options: ['Hoe laat begint de vergadering?', 'Waarom ben jij laat?', 'Geen idee.', 'Tot straks hoor.'], answer: 'Hoe laat begint de vergadering?' }
+        ]
+    }
+);
+
+const extraGrammarExercises = {
+    g001: [
+        { type: 'fill', question: '___ heet Mark. (he)', answer: 'Hij', hint: 'he' },
+        { type: 'mcq', question: 'Which pronoun is plural "you"?', options: ['jij', 'u', 'jullie', 'wij'], answer: 'jullie' },
+        { type: 'fill', question: '___ leren Nederlands. (they)', answer: 'Zij', hint: 'they' },
+        { type: 'mcq', question: 'Which pair means "we"?', options: ['wij/we', 'jij/je', 'zij/ze only she', 'hij/het'], answer: 'wij/we' },
+        { type: 'fill', question: '___ bent welkom. (formal you)', answer: 'U', hint: 'formal you' }
+    ],
+    g002: [
+        { type: 'fill', question: 'Jullie ___ laat.', answer: 'zijn', hint: 'you plural are' },
+        { type: 'fill', question: 'Het ___ koud vandaag.', answer: 'is', hint: 'it is' },
+        { type: 'mcq', question: 'Choose the correct question.', options: ['Bent jij student?', 'Ben jij student?', 'Zijn jij student?', 'Is jij student?'], answer: 'Ben jij student?' },
+        { type: 'fill', question: 'U ___ mijn leraar.', answer: 'bent', hint: 'formal you are' },
+        { type: 'mcq', question: 'Which form goes with "wij"?', options: ['ben', 'bent', 'is', 'zijn'], answer: 'zijn' }
+    ],
+    g003: [
+        { type: 'fill', question: 'Jullie ___ een afspraak.', answer: 'hebben', hint: 'you plural have' },
+        { type: 'mcq', question: 'Choose the correct form: "U ___ gelijk."', options: ['heb', 'hebt', 'heeft', 'hebben'], answer: 'heeft' },
+        { type: 'fill', question: '___ hij een fiets?', answer: 'Heeft', hint: 'question form' },
+        { type: 'fill', question: 'Zij (they) ___ tijd.', answer: 'hebben', hint: 'they have' },
+        { type: 'mcq', question: 'Which sentence is correct?', options: ['Ik heeft tijd.', 'Ik heb tijd.', 'Ik hebben tijd.', 'Ik hebt tijd.'], answer: 'Ik heb tijd.' }
+    ],
+    g004: [
+        { type: 'mcq', question: '___ fiets', options: ['de', 'het'], answer: 'de' },
+        { type: 'mcq', question: '___ meisje', options: ['de', 'het'], answer: 'het' },
+        { type: 'mcq', question: '___ stoelen (plural)', options: ['de', 'het'], answer: 'de' },
+        { type: 'mcq', question: '___ Nederlands (language)', options: ['de', 'het'], answer: 'het' },
+        { type: 'mcq', question: 'The indefinite article is:', options: ['de', 'het', 'een', 'niet'], answer: 'een' }
+    ]
+};
+
+Object.entries(extraGrammarExercises).forEach(([lessonId, exercises]) => {
+    const lesson = GrammarData.getById(lessonId);
+    if (lesson) lesson.exercises.push(...exercises);
+});

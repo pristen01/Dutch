@@ -7,6 +7,7 @@ const FlashcardsComponent = {
     currentIndex: 0,
     flipped: false,
     sessionComplete: false,
+    reviewedCount: 0,
 
     render() {
         const container = document.getElementById('view-flashcards');
@@ -15,7 +16,7 @@ const FlashcardsComponent = {
 
         // Get due cards
         const allWordIds = VocabularyData.getIdsUpToWeek(currWeek);
-        const dueCards = SRS.getDueCards(allWordIds, 20);
+        const dueCards = SRS.getDueCards(allWordIds, 40);
 
         if (dueCards.length === 0 || this.sessionComplete) {
             this.renderComplete(container, allWordIds);
@@ -100,17 +101,17 @@ const FlashcardsComponent = {
         SRS.updateCard(card.id, quality);
 
         this.currentIndex++;
+        this.reviewedCount++;
         this.flipped = false;
-
-        DutchStorage.markDailyActivity('flashcards');
-        DutchStorage.updateStreak();
-        App.updateStreakDisplay();
 
         this.render();
     },
 
     renderComplete(container, allWordIds) {
         const stats = SRS.getStats(allWordIds);
+        if (this.reviewedCount > 0 || this.sessionComplete) {
+            DutchStorage.markActivityComplete('flashcards', 20);
+        }
 
         container.innerHTML = `
             <div class="flashcard-container">
@@ -151,6 +152,7 @@ const FlashcardsComponent = {
         this.currentIndex = 0;
         this.flipped = false;
         this.sessionComplete = false;
+        this.reviewedCount = 0;
         this.cards = [];
     }
 };

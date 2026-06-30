@@ -6,6 +6,7 @@ const App = {
     currentView: 'dashboard',
 
     init() {
+        DutchStorage.syncCalendarProgress();
         this.setupNavigation();
         this.setupMobileMenu();
         this.handleHashChange();
@@ -23,7 +24,6 @@ const App = {
         } else {
             document.getElementById('onboarding-overlay').classList.add('hidden');
             document.getElementById('app').classList.remove('hidden');
-            DutchStorage.updateStreak();
             this.init();
         }
     },

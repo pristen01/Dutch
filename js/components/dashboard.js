@@ -11,7 +11,8 @@ const DashboardComponent = {
         const todayProgress = DutchStorage.getTodayProgress();
         const currWeek = CurriculumData.getCurriculumWeek(data.currentWeek, data.mode);
         const weekData = CurriculumData.getWeek(currWeek);
-        const dailyPlan = CurriculumData.getDailyPlan(currWeek);
+        const dailyPlan = CurriculumData.getDailyPlan(currWeek, { mode: data.mode });
+        const planProgress = DutchStorage.getDailyPlanProgress(dailyPlan);
         const examDate = DutchStorage.getExamDate();
         const daysLeft = examDate ? Math.max(0, Math.ceil((examDate - new Date()) / (1000 * 60 * 60 * 24))) : 0;
         const totalVocab = VocabularyData.getIdsUpToWeek(currWeek);
@@ -25,6 +26,7 @@ const DashboardComponent = {
                 <h2>Goedemorgen! 🌅</h2>
                 <p class="greeting">
                     ${config.emoji} ${config.name} — Week ${data.currentWeek} of ${config.totalWeeks}
+                    • Day ${data.currentDay || 1} of 7
                     <span class="level-badge ${level.toLowerCase()}" style="margin-left: 8px;">${level}</span>
                 </p>
             </div>
@@ -47,9 +49,9 @@ const DashboardComponent = {
                     <div class="stat-meta">${examDate ? examDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Not set'}</div>
                 </div>
                 <div class="stat-card warning">
-                    <div class="stat-value">${data.completedLessons.length}</div>
-                    <div class="stat-label">Lessons Completed</div>
-                    <div class="stat-meta">Keep learning!</div>
+                    <div class="stat-value">${planProgress.completedMinutes}</div>
+                    <div class="stat-label">Minutes Today</div>
+                    <div class="stat-meta">${planProgress.targetMinutes} min daily target</div>
                 </div>
             </div>
 
@@ -63,6 +65,7 @@ const DashboardComponent = {
                     ${this.renderTimeline(data, config)}
                 </div>
                 <div class="timeline-level-labels">
+                    <span style="flex: ${config.a0Weeks}; color: #A78BFA;">A0</span>
                     <span style="flex: ${config.a1Weeks}; color: #48CAE4;">A1</span>
                     <span style="flex: ${config.a2Weeks}; color: var(--success);">A2</span>
                     <span style="flex: ${config.b1Weeks}; color: var(--warning);">B1</span>
@@ -74,12 +77,24 @@ const DashboardComponent = {
             <div class="card card-glow mt-lg">
                 <div class="card-header">
                     <div class="card-title">📋 Today's Study Plan</div>
-                    <div class="card-subtitle">${weekData ? weekData.titleEn : 'Review'}</div>
+                    <div class="card-subtitle">
+                        ${weekData ? weekData.titleEn : 'Review'} •
+                        ${planProgress.completed}/${planProgress.total} activities •
+                        ${planProgress.completedMinutes}/${planProgress.targetMinutes} min complete
+                    </div>
+                </div>
+                <div style="padding: 0 var(--space-lg) var(--space-lg);">
+                    <div class="lesson-progress-bar">
+                        <div class="lesson-progress-fill" style="width: ${Math.min(100, Math.round((planProgress.completedMinutes / planProgress.targetMinutes) * 100))}%"></div>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: var(--text-sm); margin-top: var(--space-sm);">
+                        Planned today: ${planProgress.plannedMinutes} minutes. Extra review is added automatically when core lessons are shorter than your goal.
+                    </p>
                 </div>
             </div>
             <div class="today-plan mt-md">
                 ${dailyPlan.map(item => `
-                    <div class="plan-item ${todayProgress[item.type] ? 'completed' : ''}" onclick="App.navigate('${item.type === 'flashcards' ? 'flashcards' : item.type === 'knm' ? 'knm' : item.type === 'reading' ? 'reading' : item.type === 'grammar' ? 'grammar' : item.type === 'vocabulary' ? 'vocabulary' : 'lesson'}')">
+                    <div class="plan-item ${todayProgress[item.type] ? 'completed' : ''}" onclick="DashboardComponent.openPlanItem('${item.type}', '${item.data?.lessonId || item.data?.passageId || item.data?.topicId || item.data?.examType || ''}')">
                         <span class="plan-icon">${item.icon}</span>
                         <div class="plan-info">
                             <h4>${item.title}</h4>
@@ -127,9 +142,10 @@ const DashboardComponent = {
             else if (w === data.currentWeek) cls = 'current';
 
             // Determine level
-            if (w <= config.a1Weeks) levelCls = 'a1';
-            else if (w <= config.a1Weeks + config.a2Weeks) levelCls = 'a2';
-            else if (w <= config.a1Weeks + config.a2Weeks + config.b1Weeks) levelCls = 'b1';
+            if (w <= config.a0Weeks) levelCls = 'a0';
+            else if (w <= config.a0Weeks + config.a1Weeks) levelCls = 'a1';
+            else if (w <= config.a0Weeks + config.a1Weeks + config.a2Weeks) levelCls = 'a2';
+            else if (w <= config.a0Weeks + config.a1Weeks + config.a2Weeks + config.b1Weeks) levelCls = 'b1';
             else levelCls = 'b2';
 
             const label = (totalWeeks <= 20 || w % Math.ceil(totalWeeks / 20) === 1) ? w : '';
@@ -161,15 +177,44 @@ const DashboardComponent = {
         }).length;
         const knmPct = Math.round((knmDone / knmTopics.length) * 100);
 
+        const today = DutchStorage.getTodayProgress();
+        const skillPracticePct = Math.round((['listening', 'speaking', 'writing'].filter(k => today[k]).length / 3) * 100);
+
         // Overall
-        const overall = Math.round((vocabMastery + grammarPct + readingPct + knmPct) / 4);
+        const overall = Math.round((vocabMastery + grammarPct + readingPct + knmPct + skillPracticePct) / 5);
 
         return [
             { name: 'Vocabulary', value: vocabMastery, color: '#FF6B00' },
             { name: 'Grammar', value: grammarPct, color: '#00B4D8' },
             { name: 'Reading', value: readingPct, color: '#06D6A0' },
             { name: 'KNM', value: knmPct, color: '#FFD166' },
+            { name: 'Listening/Speaking/Writing', value: skillPracticePct, color: '#EF476F' },
             { name: 'Overall', value: overall, color: '#A78BFA' }
         ];
+    },
+
+    openPlanItem(type, id) {
+        if (type === 'flashcards') return App.navigate('flashcards');
+        if (type === 'knm') {
+            App.navigate('knm');
+            if (id) setTimeout(() => KNMComponent.openTopic(id), 0);
+            return;
+        }
+        if (type === 'reading') {
+            App.navigate('reading');
+            if (id) setTimeout(() => ReadingComponent.startReading(id), 0);
+            return;
+        }
+        if (type === 'grammar') {
+            if (id) {
+                App.navigate('grammar');
+                setTimeout(() => GrammarBrowserComponent.openLesson(id), 0);
+                return;
+            }
+            return App.navigate('grammar');
+        }
+        if (type === 'vocabulary') return App.navigate('vocabulary');
+        if (type === 'exam') return App.navigate('exam');
+        return App.navigate('lesson');
     }
 };

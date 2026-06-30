@@ -258,3 +258,33 @@ const VocabularyData = {
         return this.words.filter(w => w.week <= week).map(w => w.id);
     }
 };
+
+VocabularyData.words.push(
+    // ===== A0 FOUNDATION: Alphabet, sounds, classroom survival =====
+    { id: 'w191', dutch: 'de letter', english: 'letter', gender: 'de', plural: 'letters', example: 'Welke letter hoor je?', exampleEn: 'Which letter do you hear?', theme: 'alphabet', level: 'A0', week: 1 },
+    { id: 'w192', dutch: 'het alfabet', english: 'alphabet', gender: 'het', plural: null, example: 'Ik leer het Nederlandse alfabet.', exampleEn: 'I am learning the Dutch alphabet.', theme: 'alphabet', level: 'A0', week: 1 },
+    { id: 'w193', dutch: 'spellen', english: 'to spell', gender: null, plural: null, example: 'Kunt u uw naam spellen?', exampleEn: 'Can you spell your name?', theme: 'classroom', level: 'A0', week: 1 },
+    { id: 'w194', dutch: 'herhalen', english: 'to repeat', gender: null, plural: null, example: 'Kunt u dat herhalen?', exampleEn: 'Can you repeat that?', theme: 'classroom', level: 'A0', week: 1 },
+    { id: 'w195', dutch: 'langzaam', english: 'slowly', gender: null, plural: null, example: 'Spreekt u langzaam, alstublieft?', exampleEn: 'Please speak slowly.', theme: 'classroom', level: 'A0', week: 1 },
+    { id: 'w196', dutch: 'begrijpen', english: 'to understand', gender: null, plural: null, example: 'Ik begrijp het niet.', exampleEn: 'I do not understand.', theme: 'classroom', level: 'A0', week: 1 },
+    { id: 'w197', dutch: 'luisteren', english: 'to listen', gender: null, plural: null, example: 'Luister naar de zin.', exampleEn: 'Listen to the sentence.', theme: 'pronunciation', level: 'A0', week: 1 },
+    { id: 'w198', dutch: 'zeggen', english: 'to say', gender: null, plural: null, example: 'Zeg de zin hardop.', exampleEn: 'Say the sentence aloud.', theme: 'pronunciation', level: 'A0', week: 1 },
+    { id: 'w199', dutch: 'de klank', english: 'sound', gender: 'de', plural: 'klanken', example: 'De ui-klank is moeilijk.', exampleEn: 'The ui sound is difficult.', theme: 'pronunciation', level: 'A0', week: 1 },
+    { id: 'w200', dutch: 'mijn naam is', english: 'my name is', gender: null, plural: null, example: 'Mijn naam is Sam.', exampleEn: 'My name is Sam.', theme: 'personal', level: 'A0', week: 1 },
+
+    // ===== FILLER FOR SPARSE B1/B2 WEEKS =====
+    { id: 'w201', dutch: 'de afspraakbevestiging', english: 'appointment confirmation', gender: 'de', plural: 'afspraakbevestigingen', example: 'Ik ontvang een afspraakbevestiging per e-mail.', exampleEn: 'I receive an appointment confirmation by email.', theme: 'communication', level: 'B1', week: 11 },
+    { id: 'w202', dutch: 'de aanvraag', english: 'application / request', gender: 'de', plural: 'aanvragen', example: 'De aanvraag bij de gemeente is compleet.', exampleEn: 'The application at the municipality is complete.', theme: 'government', level: 'B1', week: 11 },
+    { id: 'w203', dutch: 'bewijzen', english: 'to prove', gender: null, plural: null, example: 'U moet uw inkomen bewijzen.', exampleEn: 'You must prove your income.', theme: 'government', level: 'B1', week: 11 },
+    { id: 'w204', dutch: 'de voorwaarde', english: 'condition / requirement', gender: 'de', plural: 'voorwaarden', example: 'Lees de voorwaarden goed.', exampleEn: 'Read the conditions carefully.', theme: 'society', level: 'B1', week: 11 },
+    { id: 'w205', dutch: 'de termijn', english: 'deadline / term', gender: 'de', plural: 'termijnen', example: 'De termijn is zes weken.', exampleEn: 'The deadline is six weeks.', theme: 'government', level: 'B1', week: 11 },
+    { id: 'w206', dutch: 'de conclusie', english: 'conclusion', gender: 'de', plural: 'conclusies', example: 'Mijn conclusie is duidelijk.', exampleEn: 'My conclusion is clear.', theme: 'academic', level: 'B2', week: 13 },
+    { id: 'w207', dutch: 'de tegenstelling', english: 'contrast', gender: 'de', plural: 'tegenstellingen', example: 'Er is een tegenstelling tussen theorie en praktijk.', exampleEn: 'There is a contrast between theory and practice.', theme: 'academic', level: 'B2', week: 13 },
+    { id: 'w208', dutch: 'enerzijds', english: 'on the one hand', gender: null, plural: null, example: 'Enerzijds is het plan duur.', exampleEn: 'On the one hand, the plan is expensive.', theme: 'academic', level: 'B2', week: 13 },
+    { id: 'w209', dutch: 'anderzijds', english: 'on the other hand', gender: null, plural: null, example: 'Anderzijds levert het veel op.', exampleEn: 'On the other hand, it produces a lot.', theme: 'academic', level: 'B2', week: 13 },
+    { id: 'w210', dutch: 'samenvatten', english: 'to summarize', gender: null, plural: null, example: 'Kunt u de tekst samenvatten?', exampleEn: 'Can you summarize the text?', theme: 'academic', level: 'B2', week: 16 },
+    { id: 'w211', dutch: 'de onderbouwing', english: 'supporting argument', gender: 'de', plural: 'onderbouwingen', example: 'Een goede onderbouwing is nodig.', exampleEn: 'Good supporting argumentation is needed.', theme: 'academic', level: 'B2', week: 16 },
+    { id: 'w212', dutch: 'het standpunt', english: 'point of view', gender: 'het', plural: 'standpunten', example: 'Leg uw standpunt duidelijk uit.', exampleEn: 'Explain your point of view clearly.', theme: 'communication', level: 'B2', week: 16 },
+    { id: 'w213', dutch: 'nuanceren', english: 'to nuance', gender: null, plural: null, example: 'In een debat moet je kunnen nuanceren.', exampleEn: 'In a debate you must be able to add nuance.', theme: 'communication', level: 'B2', week: 16 },
+    { id: 'w214', dutch: 'de samenvatting', english: 'summary', gender: 'de', plural: 'samenvattingen', example: 'Schrijf een korte samenvatting.', exampleEn: 'Write a short summary.', theme: 'academic', level: 'B2', week: 16 }
+);

@@ -106,6 +106,5 @@ const GrammarBrowserComponent = {
             </div>
         `;
 
-        DutchStorage.markDailyActivity('grammar');
     }
 };

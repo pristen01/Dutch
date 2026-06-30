@@ -14,6 +14,7 @@ const LessonComponent = {
         const grammarLessons = weekData.grammarIds.map(id => GrammarData.getById(id)).filter(Boolean);
         const readings = weekData.readingIds.map(id => ReadingData.getById(id)).filter(Boolean);
         const level = DutchStorage.getCurrentLevel();
+        const skillPractice = CurriculumData.getSkillPractice(currWeek);
 
         container.innerHTML = `
             <div class="lesson-header">
@@ -81,6 +82,37 @@ const LessonComponent = {
             </div>
             `).join('')}
 
+            <!-- Exam Skills Practice -->
+            <div class="lesson-section">
+                <h3><span class="section-icon">🎧</span> Listening Practice</h3>
+                <p>${skillPractice.listening}</p>
+                <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="LessonComponent.playListeningPractice(${currWeek})">🔊 Play Practice Text</button>
+                    <button class="btn btn-primary" onclick="LessonComponent.completeSkillPractice('listening', 15)">Mark Listening Complete</button>
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h3><span class="section-icon">🎙️</span> Speaking Practice</h3>
+                <p>${skillPractice.speaking}</p>
+                <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="LessonComponent.playSpeakingPrompt(${currWeek})">🔊 Hear Prompt</button>
+                    <button class="btn btn-primary" onclick="LessonComponent.completeSkillPractice('speaking', 15)">Mark Speaking Complete</button>
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h3><span class="section-icon">✍️</span> Writing Practice</h3>
+                <p>${skillPractice.writing}</p>
+                <textarea id="writing-practice-text" placeholder="Write your Dutch answer here..." style="width: 100%; min-height: 160px; margin-top: var(--space-md); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text-primary);"></textarea>
+                <div style="margin-top: var(--space-md); color: var(--text-muted); font-size: var(--text-sm);">
+                    Checklist: clear topic sentence, week vocabulary, correct verb position, and polite/formal tone when needed.
+                </div>
+                <div style="text-align: center; margin-top: var(--space-lg);">
+                    <button class="btn btn-primary" onclick="LessonComponent.completeSkillPractice('writing', 15)">Mark Writing Complete</button>
+                </div>
+            </div>
+
             <!-- Navigation -->
             <div style="display: flex; justify-content: space-between; margin-top: var(--space-xl);">
                 <button class="btn btn-secondary" onclick="LessonComponent.prevWeek()" ${data.currentWeek <= 1 ? 'disabled' : ''}>
@@ -92,9 +124,23 @@ const LessonComponent = {
             </div>
         `;
 
-        DutchStorage.markDailyActivity('lesson');
-        DutchStorage.updateStreak();
-        App.updateStreakDisplay();
+    },
+
+    playListeningPractice(weekNum) {
+        const weekData = CurriculumData.getWeek(weekNum);
+        const vocab = VocabularyData.getByWeek(weekNum).slice(0, 8).map(w => w.dutch).join(', ');
+        DutchSpeech.speak(`${weekData.title}. ${weekData.focus}. Woorden: ${vocab}.`);
+    },
+
+    playSpeakingPrompt(weekNum) {
+        const practice = CurriculumData.getSkillPractice(weekNum);
+        DutchSpeech.speak(practice.speaking);
+    },
+
+    completeSkillPractice(type, minutes) {
+        DutchStorage.markActivityComplete(type, minutes);
+        alert(`${type.charAt(0).toUpperCase() + type.slice(1)} practice completed. Great work!`);
+        if (App.currentView === 'dashboard') DashboardComponent.render();
     },
 
     renderMarkdown(text) {
@@ -121,6 +167,7 @@ const LessonComponent = {
         const data = DutchStorage.load();
         const config = DutchStorage.getModeConfig(data.mode);
         if (data.currentWeek < config.totalWeeks) {
+            DutchStorage.markLessonComplete(data.currentWeek);
             DutchStorage.set('currentWeek', data.currentWeek + 1);
             this.render();
             window.scrollTo(0, 0);

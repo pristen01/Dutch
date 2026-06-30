@@ -22,6 +22,12 @@ const ExamComponent = {
             </div>
 
             <div class="stats-grid">
+                <div class="stat-card primary" style="cursor: pointer;" onclick="ExamComponent.startMixedExam()">
+                    <div style="font-size: 2rem; margin-bottom: var(--space-sm);">🎯</div>
+                    <div class="stat-label" style="font-size: var(--text-lg); font-weight: 700; color: var(--text-primary);">Mixed Daily Drill</div>
+                    <div class="stat-meta">Vocabulary, grammar, reading, KNM</div>
+                    <div class="stat-meta">30 minutes</div>
+                </div>
                 <div class="stat-card primary" style="cursor: pointer;" onclick="ExamComponent.startKNMExam()">
                     <div style="font-size: 2rem; margin-bottom: var(--space-sm);">🏛️</div>
                     <div class="stat-label" style="font-size: var(--text-lg); font-weight: 700; color: var(--text-primary);">KNM Exam</div>
@@ -79,6 +85,37 @@ const ExamComponent = {
         this.answers = [];
         this.answered = false;
         this.timeRemaining = 45 * 60; // 45 minutes
+        this.startTimer();
+        this.renderExam();
+    },
+
+    startMixedExam() {
+        const data = DutchStorage.load();
+        const currWeek = CurriculumData.getCurriculumWeek(data.currentWeek, data.mode);
+        const words = VocabularyData.getUpToWeek(currWeek).sort(() => Math.random() - 0.5).slice(0, 8);
+        const vocabQuestions = words.map(w => {
+            const options = VocabularyData.getUpToWeek(currWeek)
+                .filter(x => x.id !== w.id)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3)
+                .map(x => x.english);
+            return {
+                question: `What does "${w.dutch}" mean?`,
+                options: [...options, w.english].sort(() => Math.random() - 0.5),
+                answer: w.english,
+                type: 'mcq'
+            };
+        });
+        const grammarQuestions = GrammarData.getByWeek(currWeek).flatMap(l => l.exercises).sort(() => Math.random() - 0.5).slice(0, 8);
+        const readingQuestions = ReadingData.getByWeek(currWeek).flatMap(p => p.questions.map(q => ({ ...q, type: 'mcq' }))).sort(() => Math.random() - 0.5).slice(0, 6);
+        const knmQuestions = KNMData.getRandomExam(8).map(q => ({ ...q, type: 'mcq' }));
+
+        this.examType = 'Mixed';
+        this.questions = [...vocabQuestions, ...grammarQuestions, ...readingQuestions, ...knmQuestions].sort(() => Math.random() - 0.5);
+        this.currentIndex = 0;
+        this.answers = [];
+        this.answered = false;
+        this.timeRemaining = 30 * 60;
         this.startTimer();
         this.renderExam();
     },
@@ -271,6 +308,8 @@ const ExamComponent = {
                 total: total
             });
         });
+        const minutesByExam = { KNM: 45, Reading: 30, Vocabulary: 20, Grammar: 25, Mixed: 30 };
+        DutchStorage.markActivityComplete('exam', minutesByExam[this.examType] || 30);
 
         const container = document.getElementById('view-exam');
         let scoreClass = 'poor';

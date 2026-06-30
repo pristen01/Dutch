@@ -4,16 +4,18 @@
 // ============================================
 
 const CurriculumData = {
+    MIN_DAILY_MINUTES: 60,
+
     // Standard 16-week structure (Speed mode)
     // Other modes scale this across more weeks
     weeks: [
         {
-            week: 1, level: 'A1', title: 'Welkom! Beginnen met Nederlands',
-            titleEn: 'Welcome! Starting Dutch',
-            focus: 'Alphabet, pronunciation, greetings, personal pronouns, zijn/hebben',
-            vocabThemes: ['greetings', 'pronouns', 'personal'],
-            grammarIds: ['g001', 'g002'],
-            readingIds: [],
+            week: 1, level: 'A0', title: 'Nulstart: Klanken en Survival Dutch',
+            titleEn: 'Zero Start: Sounds and Survival Dutch',
+            focus: 'Alphabet, pronunciation, greetings, classroom language, personal pronouns, zijn/hebben',
+            vocabThemes: ['alphabet', 'pronunciation', 'greetings', 'classroom', 'pronouns', 'personal'],
+            grammarIds: ['g000', 'g001', 'g002'],
+            readingIds: ['r000'],
             knmTopics: []
         },
         {
@@ -39,7 +41,7 @@ const CurriculumData = {
             titleEn: 'Food, Drinks and Shopping',
             focus: 'Food vocabulary, shopping, negation, asking questions',
             vocabThemes: ['food', 'shopping'],
-            grammarIds: [],
+            grammarIds: ['g015'],
             readingIds: ['r002', 'r003'],
             knmTopics: []
         },
@@ -75,8 +77,8 @@ const CurriculumData = {
             titleEn: 'Work and Education',
             focus: 'Work vocabulary, job applications, formal language',
             vocabThemes: ['work', 'education'],
-            grammarIds: [],
-            readingIds: [],
+            grammarIds: ['g016'],
+            readingIds: ['r010'],
             knmTopics: ['knm_work']
         },
         {
@@ -101,9 +103,9 @@ const CurriculumData = {
             week: 11, level: 'B1', title: 'Nederlands in Praktijk',
             titleEn: 'Dutch in Practice',
             focus: 'Review & consolidate B1, extensive reading, KNM',
-            vocabThemes: [],
-            grammarIds: [],
-            readingIds: [],
+            vocabThemes: ['communication', 'society'],
+            grammarIds: ['g017'],
+            readingIds: ['r011'],
             knmTopics: ['knm_politics']
         },
         {
@@ -111,17 +113,17 @@ const CurriculumData = {
             titleEn: 'Professional Dutch',
             focus: 'Formal/business Dutch, meetings, presentations',
             vocabThemes: ['work', 'society'],
-            grammarIds: [],
-            readingIds: [],
+            grammarIds: ['g018'],
+            readingIds: ['r012'],
             knmTopics: ['knm_history']
         },
         {
             week: 13, level: 'B2', title: 'Gevorderd Nederlands',
             titleEn: 'Advanced Dutch',
             focus: 'Passive voice, complex sentence structures',
-            vocabThemes: [],
+            vocabThemes: ['academic', 'society'],
             grammarIds: ['g012'],
-            readingIds: [],
+            readingIds: ['r013'],
             knmTopics: ['knm_culture']
         },
         {
@@ -146,10 +148,10 @@ const CurriculumData = {
             week: 16, level: 'B2', title: 'Eindexamen en Revisie',
             titleEn: 'Final Exam & Review',
             focus: 'Full review, mock exams, final preparation',
-            vocabThemes: [],
-            grammarIds: [],
-            readingIds: [],
-            knmTopics: []
+            vocabThemes: ['exam', 'society', 'communication'],
+            grammarIds: ['g012', 'g013', 'g014'],
+            readingIds: ['r008', 'r009', 'r014'],
+            knmTopics: ['knm_government', 'knm_politics', 'knm_culture']
         }
     ],
 
@@ -177,71 +179,166 @@ const CurriculumData = {
         return Math.min(16, Math.ceil(actualWeek * ratio));
     },
 
-    getDailyPlan(weekNum) {
+    getDailyTargetMinutes(mode) {
+        const data = DutchStorage.load();
+        const selectedMode = mode || data.mode || 'standard';
+        const config = DutchStorage.getModeConfig(selectedMode);
+        const configuredGoal = data.settings?.dailyGoalMinutes || Math.round(config.hoursPerDay * 60);
+        return Math.max(this.MIN_DAILY_MINUTES, configuredGoal);
+    },
+
+    getSkillPractice(weekNum) {
+        const week = this.getWeek(weekNum);
+        const level = week?.level || 'A1';
+        const topic = week?.titleEn || 'today\'s Dutch topic';
+        const writingByLevel = {
+            A0: 'Write 5 short sentences introducing yourself: name, country, city, language, and one polite question.',
+            A1: 'Write a short message of 6-8 sentences about your day, using words from this week.',
+            A2: 'Write a practical email of 8-10 sentences about an appointment, home, travel, or work situation.',
+            B1: 'Write a structured paragraph giving your opinion and one reason about a familiar topic.',
+            B2: 'Write a short argument with an introduction, two reasons, and a conclusion.'
+        };
+        const listeningByLevel = {
+            A0: 'Listen to this week\'s words with text-to-speech, then repeat each greeting and survival phrase aloud.',
+            A1: 'Listen to the model examples in the lesson and answer: who, where, when, and what?',
+            A2: 'Listen to the vocabulary examples and summarize the situation in 3 simple Dutch sentences.',
+            B1: 'Listen to the KNM or reading text aloud and note 5 key facts in Dutch.',
+            B2: 'Listen to a longer reading text aloud and identify the main claim, two details, and one opinion.'
+        };
+        const speakingByLevel = {
+            A0: 'Say the alphabet, spell your name, and introduce yourself in 30 seconds.',
+            A1: 'Record or say 1 minute about yourself, your family, or your daily routine.',
+            A2: 'Role-play a practical conversation: doctor, shop, transport, housing, or work.',
+            B1: 'Give a 2-minute opinion about a social topic and use because, but, and therefore.',
+            B2: 'Give a 3-minute argument about an exam topic and include a clear conclusion.'
+        };
+
+        return {
+            writing: writingByLevel[level] || writingByLevel.A1,
+            listening: listeningByLevel[level] || listeningByLevel.A1,
+            speaking: speakingByLevel[level] || speakingByLevel.A1,
+            topic
+        };
+    },
+
+    createPlanItem(type, icon, title, description, minutes, data = {}) {
+        return {
+            type,
+            icon,
+            title,
+            description,
+            minutes,
+            duration: `${minutes} min`,
+            data
+        };
+    },
+
+    getPlanTotalMinutes(plan) {
+        return plan.reduce((sum, item) => sum + (item.minutes || parseInt(item.duration, 10) || 0), 0);
+    },
+
+    getDailyPlan(weekNum, options = {}) {
         const week = this.getWeek(weekNum);
         if (!week) return [];
 
         const plan = [];
+        const targetMinutes = options.targetMinutes || this.getDailyTargetMinutes(options.mode);
 
-        // Vocabulary
         const vocabWords = VocabularyData.getByWeek(weekNum);
         if (vocabWords.length > 0) {
-            plan.push({
-                type: 'vocabulary',
-                icon: '📖',
-                title: 'Vocabulary',
-                description: `Learn ${vocabWords.length} new words`,
-                duration: '15 min',
-                data: { week: weekNum }
-            });
+            const minutes = Math.max(20, Math.min(35, Math.ceil(vocabWords.length * 1.2)));
+            plan.push(this.createPlanItem(
+                'vocabulary',
+                '📖',
+                'Vocabulary',
+                `Learn and quiz ${vocabWords.length} words`,
+                minutes,
+                { week: weekNum }
+            ));
         }
 
-        // Grammar
-        if (week.grammarIds.length > 0) {
-            const lesson = GrammarData.getById(week.grammarIds[0]);
+        week.grammarIds.forEach((lessonId, index) => {
+            const lesson = GrammarData.getById(lessonId);
+            if (!lesson) return;
+            const exerciseCount = lesson.exercises ? lesson.exercises.length : 0;
             plan.push({
                 type: 'grammar',
                 icon: '📝',
-                title: 'Grammar',
-                description: lesson ? lesson.title : 'Grammar practice',
-                duration: '15 min',
-                data: { lessonId: week.grammarIds[0] }
+                title: index === 0 ? 'Grammar' : 'Grammar Practice',
+                description: `${lesson.title} (${exerciseCount} exercises)`,
+                minutes: Math.max(15, Math.min(30, 8 + exerciseCount * 2)),
+                duration: `${Math.max(15, Math.min(30, 8 + exerciseCount * 2))} min`,
+                activityKey: `grammar:${lessonId}`,
+                data: { lessonId }
             });
-        }
+        });
 
-        // Reading
-        if (week.readingIds.length > 0) {
+        week.readingIds.forEach((passageId, index) => {
+            const passage = ReadingData.getById(passageId);
+            if (!passage) return;
+            const questionCount = passage.questions ? passage.questions.length : 0;
             plan.push({
                 type: 'reading',
                 icon: '📕',
-                title: 'Reading',
-                description: 'Reading comprehension exercise',
-                duration: '15 min',
-                data: { passageId: week.readingIds[0] }
+                title: index === 0 ? 'Reading' : 'Reading Practice',
+                description: `${passage.titleEn} (${questionCount} questions)`,
+                minutes: Math.max(15, Math.min(25, 10 + questionCount)),
+                duration: `${Math.max(15, Math.min(25, 10 + questionCount))} min`,
+                activityKey: `reading:${passageId}`,
+                data: { passageId }
             });
-        }
-
-        // Flashcard review
-        plan.push({
-            type: 'flashcards',
-            icon: '🃏',
-            title: 'Review Flashcards',
-            description: 'Spaced repetition review',
-            duration: '10 min',
-            data: {}
         });
 
-        // KNM (from week 6+)
-        if (week.knmTopics.length > 0) {
+        plan.push(this.createPlanItem(
+            'flashcards',
+            '🃏',
+            'Review Flashcards',
+            'Spaced repetition review of current and past words',
+            20,
+            { week: weekNum }
+        ));
+
+        week.knmTopics.forEach((topicId, index) => {
+            const topic = KNMData.getTopicById(topicId);
+            if (!topic) return;
+            const questionCount = topic.questions ? topic.questions.length : 0;
             plan.push({
                 type: 'knm',
                 icon: '🏛️',
-                title: 'KNM Study',
-                description: 'Dutch society knowledge',
-                duration: '10 min',
-                data: { topicId: week.knmTopics[0] }
+                title: index === 0 ? 'KNM Study' : 'KNM Review',
+                description: `${topic.titleEn} (${questionCount} questions)`,
+                minutes: Math.max(15, Math.min(25, 8 + questionCount)),
+                duration: `${Math.max(15, Math.min(25, 8 + questionCount))} min`,
+                activityKey: `knm:${topicId}`,
+                data: { topicId }
             });
+        });
+
+        const skillPractice = this.getSkillPractice(weekNum);
+        [
+            this.createPlanItem('listening', '🎧', 'Listening Practice', skillPractice.listening, 15, { week: weekNum }),
+            this.createPlanItem('speaking', '🎙️', 'Speaking Practice', skillPractice.speaking, 15, { week: weekNum }),
+            this.createPlanItem('writing', '✍️', 'Writing Practice', skillPractice.writing, 15, { week: weekNum })
+        ].forEach(item => plan.push(item));
+
+        const reviewQueue = [
+            this.createPlanItem('exam', '🎯', 'Mixed Exam Practice', 'Timed mixed questions from vocabulary, grammar, reading, and KNM', 30, { examType: 'mixed' }),
+            this.createPlanItem('grammar', '📝', 'Grammar Review', 'Review earlier grammar and redo weak exercises', 20, { review: true }),
+            this.createPlanItem('reading', '📕', 'Extra Reading Review', 'Re-read an earlier text and retake comprehension questions', 20, { review: true }),
+            this.createPlanItem('vocabulary', '🔤', 'Extra Vocabulary Quiz', 'Retest older words until they feel automatic', 20, { review: true }),
+            this.createPlanItem('knm', '🏛️', 'KNM Question Drill', 'Answer extra Dutch society exam questions', 20, { review: true })
+        ];
+
+        let queueIndex = 0;
+        while (this.getPlanTotalMinutes(plan) < targetMinutes && queueIndex < reviewQueue.length) {
+            const item = reviewQueue[queueIndex];
+            item.activityKey = `${item.type}:review:${queueIndex}`;
+            plan.push(item);
+            queueIndex++;
         }
+
+        plan.targetMinutes = targetMinutes;
+        plan.totalMinutes = this.getPlanTotalMinutes(plan);
 
         return plan;
     }

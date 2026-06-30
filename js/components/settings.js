@@ -49,7 +49,7 @@ const SettingsComponent = {
                 <div class="setting-row">
                     <div>
                         <div class="setting-label">Current Week</div>
-                        <div class="setting-description">Week ${data.currentWeek} of ${config.totalWeeks}</div>
+                        <div class="setting-description">Week ${data.currentWeek} of ${config.totalWeeks} • Day ${data.currentDay || 1} of 7</div>
                     </div>
                     <div class="setting-control">
                         <select onchange="SettingsComponent.changeWeek(parseInt(this.value))">
@@ -105,6 +105,18 @@ const SettingsComponent = {
                     <div>
                         <div class="setting-label">Exams Taken</div>
                         <div class="setting-description">${data.examResults.length} mock exams completed</div>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <div>
+                        <div class="setting-label">Study Time</div>
+                        <div class="setting-description">${data.totalStudyMinutes || 0} total minutes • ${DutchStorage.getTodayStudyMinutes()} minutes today • ${data.settings.dailyGoalMinutes} minute daily goal</div>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <div>
+                        <div class="setting-label">Lessons Completed</div>
+                        <div class="setting-description">${data.completedLessons.length} weeks marked complete</div>
                     </div>
                 </div>
             </div>

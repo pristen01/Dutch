@@ -85,7 +85,6 @@ const ReadingComponent = {
             </div>
         `;
 
-        DutchStorage.markDailyActivity('reading');
     },
 
     startQuiz() {
@@ -173,6 +172,7 @@ const ReadingComponent = {
         DutchStorage.update(data => {
             data.readingProgress[this.selectedPassage.id] = { completed: true, score: pct };
         });
+        DutchStorage.markActivityComplete('reading', Math.max(15, Math.min(25, 10 + total)));
 
         let scoreClass = pct >= 80 ? 'great' : pct >= 60 ? 'good' : pct >= 40 ? 'ok' : 'poor';
 
